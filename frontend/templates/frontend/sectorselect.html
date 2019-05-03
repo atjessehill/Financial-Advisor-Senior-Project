@@ -26,7 +26,8 @@
             <div class="container">
                 <div class="signup-content">
                     <div class="signup-form">
-                        <h2 class="form-title">Sector Select</h2>
+                        <h2 class="form-title">Sector Select:</h2>
+                        <h3 class = "form-subtitle">Click any recognizable companies</h3>
                         <form method="POST" action="/app/" class="register-form" id="register-form">
                             {% csrf_token %}
 
@@ -34,11 +35,10 @@
 
                                 <ul>
                                     {% for result in tickers %}
-                                        <div class="result_item">
-                                            <div class="row">
+                                        <div class="result_item" >
+                                            <div class="column">
                                                 <li class="litext">
                                                     <img onclick="$infoObj.mark(this);" name={{ result.SIC }} src="{{baseURL }}images/selectLogos/{{ result.ticker }}.jpg">
-                                                    <p>{{ result.SIC }}</p>
                                                 </li>
                                             </div>
 

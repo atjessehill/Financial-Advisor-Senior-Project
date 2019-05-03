@@ -137,13 +137,13 @@ def app(request):
         'name': user.firstName,
         'ticker': generate.ticker,
         'english': generate.written,
-        'intro': generate.intro,
+        #'intro': generate.intro,
         'graphpath': stat_path
     }
 
-    code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
+    # code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
 
-    stat_path = 'frontend/static/output/' + code + '.html'
+    stat_path = 'frontend/static/output/static-html-render.html'
 
     save_path = os.path.abspath(os.path.join(stat_path))
     content = render_to_string('frontend/output.html', context)
