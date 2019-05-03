@@ -9,11 +9,14 @@ class reportGenerator:
         self.name = user.firstName
         self.reasons = reasons
         self.ticker = profile.ticker
+        #TODO Pass in level from user
+        self.level = "Beginner"
 
         #TODO function that generates path
         self.img_path = "images/graph.png"
         self.report_path = None
         self.written = None
+        self.beginner = None
 
     def generate_report(self):
 
@@ -22,6 +25,12 @@ class reportGenerator:
         intro = "We found a company called **COMPANY** that we think might be a good investment for you.\n " \
                 "There are a few characteristics to look before you decide to buy! "
         #TODO
+
+        if self.level == "Beginner":
+            self.beginner = "Welcome to Get Rich Quick! "
+
+
+        #if level == advanced
 
         en_reasons = []
 
@@ -50,6 +59,7 @@ class reportGenerator:
         print(filepath)
 
         file.write(salutation)
+        file.write()
         file.write(intro)
 
         for i in en_reasons:

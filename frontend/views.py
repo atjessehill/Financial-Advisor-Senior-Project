@@ -137,6 +137,7 @@ def app(request):
         'name': user.firstName,
         'ticker': generate.ticker,
         'english': generate.written,
+        'intro': generate.intro,
         'graphpath': stat_path
     }
 
