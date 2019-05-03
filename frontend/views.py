@@ -73,9 +73,6 @@ def select(request):
         if(len(s1) == 4):
             cont = False
 
-
-
-
     context = {'userinfo': returnstring,
                'tickers': s1
                }
