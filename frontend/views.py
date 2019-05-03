@@ -130,12 +130,15 @@ def app(request):
     print(analyzer.img_path)
     stat_path = analyzer.img_path.split('static/')[1]
 
+    img_adr = stat_path.split('graphs/')[1]
+
     context = {
         'name': user.firstName,
         'ticker': generate.ticker,
         'english': generate.written,
         #'intro': generate.intro,
-        'graphpath': stat_path
+        'graphpath': stat_path,
+        'img': img_adr
     }
 
     # code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
@@ -143,7 +146,7 @@ def app(request):
     stat_path = 'frontend/static/output/static-html-render.html'
 
     save_path = os.path.abspath(os.path.join(stat_path))
-    content = render_to_string('frontend/output.html', context)
+    content = render_to_string('frontend/emailOutput.html', context)
     with open(save_path, 'w') as static_file:
         static_file.write(content)
     return render(request, "frontend/output.html", context)

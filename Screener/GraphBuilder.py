@@ -16,10 +16,14 @@ def build_graph(profile, df):
     code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
 
     stat_path = 'frontend/static/images/graphs/' + code +'.png'
+    email_img = 'EmailClient/output/' + code + '.png'
+
+    email_path = os.path.abspath(os.path.join(email_img))
 
     save_path = os.path.abspath(os.path.join(stat_path))
 
     print("Saving image in path", save_path)
     plt.savefig(save_path)
+    plt.savefig(email_path)
 
     return stat_path
