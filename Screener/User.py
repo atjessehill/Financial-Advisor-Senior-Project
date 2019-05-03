@@ -6,12 +6,13 @@ import json
 
 class User:
 
-    def __init__(self, fname, lname, risk, knowledge):
+    def __init__(self, email, fname, lname, risk, knowledge):
         # self.risk = UserRisk.riskScore
         self.firstName = fname
         self.lastname = lname
         self.fullName = fname + " " +lname
         self.risk_number = risk
+        self.email = email
 
         if risk <=5:
             self.risk_profile = "Defensive"
@@ -40,6 +41,11 @@ class User:
                 new_screen = Screen()
                 new_screen.get_url(key, self.risk_number, 'Tech')
                 self.screens[key] = new_screen
+
+    def generate_screen_url_demo(self):
+
+        new_screen = Screen()
+        new_screen.get_url_demo(self.risk_profile, "null", 'Tech')
 
     def run_all_empty_screen(self):
         print("run all empty screen")

@@ -29,6 +29,14 @@ class Screen:
         screen_url = screen_Builder(industry, objective)
         self.url = screen_url.screen_url
 
+    def get_url_demo(self, objective, profile, industry):
+        self.objective = objective
+        self.industry = industry
+        screen_url = screen_Builder(industry, objective)
+        self.url = screen_url.screen_url
+
+        return self.url
+
     def run_screen(self):
         debug = False
         if debug:
