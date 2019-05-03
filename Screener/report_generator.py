@@ -22,6 +22,14 @@ class reportGenerator:
         salutation = "Dear "+self.name
         intro = "We found a company called **COMPANY** that we think might be a good investment for you.\n " \
                 "There are a few characteristics to look before you decide to buy! "
+
+        intro = "When it comes to investing, time is on your side.  Time gives you the oppurtunity " \
+                "to ride out downturns and build up your portfolio; " \
+                "However, young adults often forget to save for retirement.  " \
+                "The earlier you begin, the more time your savings will have to grow in " \
+                "value and the more likely you are to achieve your investing goals.  " \
+                "Thats why we have put together a personalized form for you to get started " \
+                "regardless of experience level."
         #TODO
 
         en_reasons = []
