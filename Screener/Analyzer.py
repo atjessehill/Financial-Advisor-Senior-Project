@@ -12,7 +12,6 @@ class ReportGenerator:
     def __init__(self, profile):
         self.profile = profile
 
-        print("Creating new report on", self.profile.ticker, "based on...")
         for i in profile.reasons:
             print(i.measure, i.value, i.impact)
 
@@ -25,10 +24,11 @@ class Reasons:
 
 class Profile:
 
-    def __init__(self, ticker, reasons):
+    def __init__(self, ticker, reasons, co):
         self.ticker = ticker
         self.reasons = reasons
         self.finance_reasons = None
+        self.co_name = co
 
     def __str__(self):
 
@@ -40,7 +40,6 @@ class Analyzer:
         # TODO Analyze one screen at a time, so only pass in user profile and one screen. Current setup
         #  will only run the screen that matches the user profile. Ex: UserProfile.Defensive == Screen.Defensive
         testing = False
-        print("NEW ANALYZER INSTANCE: \n", user_info)
         self.profile_info = user_info['UserInfo']
         self.objective = self.profile_info['risk_profile']
         risky_screen = user_info['Risky']
@@ -52,7 +51,7 @@ class Analyzer:
         self.company_profile = None
 
         if debug:
-           excelpath = "Fundamental_Info.xlsx"
+           excelpath = os.path.abspath(os.path.join('frontend/static/Fundamental_Info.xlsx'))
 
         else:
             excelpath = os.path.abspath(os.path.join('frontend/static/Fundamental_Info.xlsx'))
@@ -65,15 +64,17 @@ class Analyzer:
 
         # Only runs screen that matches user's profile
         if not testing:
-            print("trying to run screen")
             for i in self.screens:
                 if self.profile_info['risk_profile'] == i['Objective']:
                     self.screen_results = self.run_screen(i)
-                    print("running screen")
 
         else:
-            print("Analyzer in Debug")
-            self.screen_results = test_screen_results.defensive_test
+            self.screen_results = test_screen_results.test_3
+
+
+        #TODO REMOVE
+        self.screen_results = test_screen_results.test_3
+
 
     def run_screen(self, screen_info):
         url = screen_info['URL']
@@ -92,9 +93,10 @@ class Analyzer:
         row = int(len(companies.index) / 2)
 
         company_selection = companies.iloc[row].to_dict()
-        print(company_selection)
         ticker = company_selection['ticker']
+        company = company_selection['security_name']
         del company_selection['ticker']
+        del company_selection['security_name']
 
         list_reasons = []
 
@@ -103,7 +105,7 @@ class Analyzer:
             reason = Reasons(key, value, "positive")
             list_reasons.append(reason)
 
-        self.company_profile = Profile(ticker, list_reasons)
+        self.company_profile = Profile(ticker, list_reasons, company)
         print("Defensive Choice:", self.company_profile.__str__())
 
 
@@ -117,7 +119,10 @@ class Analyzer:
         company_selection = companies.iloc[row].to_dict()
         print(company_selection)
         ticker = company_selection['ticker']
+        company = company_selection['security_name']
+
         del company_selection['ticker']
+        del company_selection['security_name']
 
         list_reasons = []
 
@@ -126,7 +131,7 @@ class Analyzer:
             reason = Reasons(key, value, "positive")
             list_reasons.append(reason)
 
-        self.company_profile = Profile(ticker, list_reasons)
+        self.company_profile = Profile(ticker, list_reasons, company)
         print("Risky Choice:", self.company_profile.__str__())
 
 
@@ -154,7 +159,7 @@ class Analyzer:
 
     def get_standard_fundamentals(self):
 
-        tags = ['revenuegrowth', 'profitmargin', 'pricetoearnings', 'pricetobook', 'industry_category', 'industry_group', 'basiceps', 'short_description']
+        tags = ['name', 'revenuegrowth', 'profitmargin', 'pricetoearnings', 'pricetobook', 'industry_category', 'industry_group', 'basiceps', 'short_description']
 
         identifier = self.company_profile.ticker
         basic = "https://api.intrinio.com/data_point?identifier=" + identifier + "&item="
@@ -174,6 +179,7 @@ class Analyzer:
 
         #todo parse results
 
+        print(dict_obj)
         keyvals = {}
 
         for item in tags:
@@ -181,9 +187,9 @@ class Analyzer:
                 if d['item'] == item:
                     keyvals[item] = d['value']
 
-
         self.tags = tags
         self.fundamental_values = keyvals
+        print(self.tags)
 
     def report_text(self):
 

@@ -79,7 +79,7 @@ class screen_Builder():
 
     def build_url(self, screen_metrics):
 
-        base = "https://api.intrinio.com/securities/search?conditions="
+        base = "https://api.intrinio.com/securities/search?conditions=security_name~gt~0,"
         api_key = self.api_key
         api = "&api_key=" + api_key
         us_only = "&us_only=Yes"
