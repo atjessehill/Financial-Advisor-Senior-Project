@@ -115,19 +115,17 @@ def app(request):
     print("\n****************************")
     print(fullname, email, risk, level)
 
-    user = User(fname, lname, risk, level)
+    user = User(email, fname, lname, risk, level)
 
-    user.generate_screen_url()
+    user.generate_screen_url_demo()
 
-    analyzer = Analyzer(user.user_to_json())
+    analyzer = Analyzer(user.user_to_json_demo(), "Demo")
+    analyzer.analysis_demo()
 
-    analyzer.analysis()
     profile = analyzer.company_profile
     generate = reportGenerator(user, analyzer.finance_reasons, profile)
     generate.generate_report()
 
-    # path = (analyzer.img_path).split("static/")[1]
-    print(analyzer.img_path)
     stat_path = analyzer.img_path.split('static/')[1]
 
     context = {
