@@ -81,10 +81,8 @@ def select(request):
 
 
 
-@ratelimit(key='ip', rate='500/s')
+@ratelimit(key='ip', rate='10000/s')
 def app(request):
-
-
 
     if request.method == "POST":
         full_str = request.body.decode("utf-8")
@@ -150,3 +148,14 @@ def app(request):
     with open(save_path, 'w') as static_file:
         static_file.write(content)
     return render(request, "frontend/output.html", context)
+
+def email(request):
+
+    if request.method == "POST":
+        full_str = request.body.decode("utf-8")
+        print(full_str)
+
+
+    context = {}
+
+    return render(request, "frontend/Final.html", context)
