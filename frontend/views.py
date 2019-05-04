@@ -161,6 +161,14 @@ def email(request):
         full_str = request.body.decode("utf-8")
         print(full_str)
 
+        full_str = full_str.split('email=')[1]
+        email, full_str = full_str.split('&address=')
+        graph, full_str = full_str.split('&report_name=')
+        template = full_str.split('&signup=')[0]
+
+        email = email.replace('%40', '@')
+
+    print(email, graph, template)
 
     context = {}
 
