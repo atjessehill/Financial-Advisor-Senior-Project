@@ -136,8 +136,9 @@ def app(request):
         'english': generate.written,
         'intro': generate.intro,
         'closing': generate.closing,
-        'graphpath': stat_path
-        'img': img_adr
+        'graphpath': stat_path,
+        'img': img_adr,
+        'email': user.email
     }
 
     # code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))

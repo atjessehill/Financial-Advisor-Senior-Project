@@ -13,7 +13,7 @@ risky_basic = [
     "revenuegrowth"
 ]
 
-debug = True
+debug = False
 
 class screen_Builder():
 

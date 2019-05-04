@@ -5,7 +5,7 @@ import json
 import datetime
 import os
 
-debug = True
+debug = False
 
 class ReportGenerator:
 
@@ -266,6 +266,6 @@ class Analyzer:
         elif self.risk_profile == "Risky":
             self.risky_analyzer()
 
-        # self.graph_price()
+        self.graph_price()
         self.get_standard_fundamentals()
         self.report_text()

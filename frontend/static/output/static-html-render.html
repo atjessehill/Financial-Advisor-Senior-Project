@@ -1,5 +1,5 @@
-{% load static %}
-{% static "" as baseUrl %}
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,12 +10,12 @@
     <title>Get Rich Quick</title>
 
     <!-- Font Icon -->
-    <link rel="stylesheet" href='{% static "fonts/material-icon/css/material-design-iconic-font.min.css" %}'>
+    <link rel="stylesheet" href='/static/fonts/material-icon/css/material-design-iconic-font.min.css'>
 
     <!-- Main css -->
-    <link rel="stylesheet" href='{% static "css/output.css" %}'>
+    <link rel="stylesheet" href='/static/css/output.css'>
 
-    <link rel="stylesheet" href='{% static "css/slider.css" %}'>
+    <link rel="stylesheet" href='/static/css/slider.css'>
 
 </head>
 <body>
@@ -28,61 +28,54 @@
                 <div class="signup-content">
                     <div class="signup-form">
 
-                        <h1>Hi {{ name }}, </h1>
-                        <p> Check out this company we think you should check out: {{ ticker }} </p>
+                        <h1>Hi Jesse, </h1>
+                        <p> Check out this company we think you should check out: HPP </p>
 
-                        {% if english %}
+                        
 
                         <ul>
+                            
                             <div class="result_item">
                                 <div class="row">
                                     <li class="litext">
-                                        <p>{{ intro }} </p>
+                                        <p>First, we looked at Hudson Pacific Properties Incs Revenue Growth and we liked their value of 0.005917
+This companies revenue has grown *** in the last year. This is a good sign for companies and happens when they sell more products. </p>
                                     </li>
                                 </div>
 
                             </div>
-                            {% for result in english %}
+                            
                             <div class="result_item">
                                 <div class="row">
                                     <li class="litext">
-                                        <p>{{ result }} </p>
+                                        <p>We started by looking  at Hudson Pacific Properties Incs Profit Margin and we liked their value of 0.046265
+A high profit margin is good and indicates how much of each dollar earned is turned into profit. Eventually this means more profit is given to you, the shareholder. </p>
                                     </li>
                                 </div>
 
                             </div>
-                            {% endfor %}
+                            
                             <div class="result_item">
                                 <div class="row">
                                     <li class="litext">
-                                        <p>{{ closing }} </p>
+                                        <p>We started by looking  at Hudson Pacific Properties Incs Price to Earnings and we liked their value of 56.0469
+Price to earnings is just one number to look at. High price to earnings can mean that the company is overvalued or it means that  </p>
                                     </li>
                                 </div>
 
                             </div>
+                            
                         </ul>
 
-                        {% else %}
-                        <p> No results found...</p>
-                        {% endif %}
+                        
                     </div>
                     <div class="signup-image">
-                        <figure><img src='{{ baseUrl}}{{ graphpath }}'></figure>
+                        <figure><img src='/static/images/graphs/AIRV3.png'></figure>
                         <p class="chart-tag">1-Year Price Chart</p>
                     </div>
                 </div>
             </div>
         </section>
-        <form method="POST" action="/app/" class="register-form" id="register-form">
-            <input type="hidden" name="email" value= {{ email }} >
-            <input type="hidden" name="address" value= {{ img }} >
-
-            <div class="form-group form-button">
-                <input type="submit" name="signup" id="signup" class="form-submit" value="Email me this Report!"/>
-            </div>
-
-        </form>
-
     </div>
 
 
