@@ -57,10 +57,11 @@ class reportGenerator:
             elif len(en_reasons) % 2 == 0:
                 first = "Then, we looked at"
 
-            else:
+            elif len(en_reasons) % 2 == 1:
                 first = "We examined the "
 
-            if type(i.value) == float:
+            if type(i.value) == str:
+                i.value = float(i.value)
                 i.value = "{:.2%}".format(i.value)
 
             if "***" in i.language:

@@ -52,7 +52,7 @@ class User:
     def generate_screen_url_demo(self):
 
         r = ["Technology", "Financial", "Consumer Goods"]
-        m = ["Basic Materials", "Industrial Goods", "Utilities", "Healthcare"]
+        m = ["Basic+Materials", "Industrial+Goods", "Utilities", "Healthcare"]
 
         if self.risk_profile == "Risky":
             sector = random.choice(r)
