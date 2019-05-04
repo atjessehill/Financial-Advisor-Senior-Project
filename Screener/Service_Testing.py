@@ -1,7 +1,5 @@
 from Screener import User, screen_Builder, Screen, Analyzer, report_generator
 import json
-from EmailClient import client
-
 
 risk_profiles = ["Risky", "Moderate", "Defensive"]
 
@@ -68,8 +66,6 @@ def analyzer_tests():
     generate = report_generator.reportGenerator(safe_user, analyzer.finance_reasons)
     generate.generate_report()
 
-    client.integrated_test(generate.report_path)
-
 def django_tests():
 
     fname = "Jesse"
@@ -91,6 +87,25 @@ def django_tests():
     generate = report_generator.reportGenerator(user, analyzer.finance_reasons)
     generate.generate_report()
 
+def new_tests():
 
-django_tests()
+    fname = "Jesse"
+    lname = "Hill"
+    fullname = fname + " " + lname
+    email = "j_hill14@.pacific.edu"
+    risk = 3
+    level = 1
+
+    user = User.User(email, fname, lname, risk, level)
+    user.generate_screen_url_demo()
+    print(user.user_to_json_demo())
+
+    analyzer = Analyzer.Analyzer(user.user_to_json_demo(), "Demo")
+    analyzer.analysis_demo()
+    profile = analyzer.company_profile
+    generate = report_generator.reportGenerator(user, analyzer.finance_reasons, profile)
+    generate.generate_report()
+
+
+new_tests()
 
