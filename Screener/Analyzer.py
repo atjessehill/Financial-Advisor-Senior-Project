@@ -95,6 +95,7 @@ class Analyzer:
         self.screen_results = self.run_screen_demo(self.screen)
 
     def run_screen_demo(self, url):
+        print(url)
         contents = urllib.request.urlopen(url)
         decode = contents.read().decode('utf-8')
         json_obj = json.loads(decode)

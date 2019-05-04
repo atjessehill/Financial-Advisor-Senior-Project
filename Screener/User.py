@@ -3,6 +3,7 @@ from Screener.Screen import Screen
 import pandas as pd
 from Screener.Analyzer import Analyzer
 import json
+import random
 
 class User:
 
@@ -50,8 +51,16 @@ class User:
 
     def generate_screen_url_demo(self):
 
+        r = ["Technology", "Financial", "Consumer Goods"]
+        m = ["Basic Materials", "Industrial Goods", "Utilities", "Healthcare"]
+
+        if self.risk_profile == "Risky":
+            sector = random.choice(r)
+        else:
+            sector = random.choice(m)
+
         new_screen = Screen()
-        self.demo_screen = new_screen.get_url_demo(self.risk_profile, "null", 'Tech')
+        self.demo_screen = new_screen.get_url_demo(self.risk_profile, "null", sector)
 
     def run_all_empty_screen(self):
         print("run all empty screen")

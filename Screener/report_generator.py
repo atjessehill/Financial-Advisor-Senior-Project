@@ -35,7 +35,7 @@ class reportGenerator:
                     "or at the very least, you can forward to a friend " \
                     "in need of investment tips!"
         else:
-            intro = "When it comes to investing, time is on your side.  Time gives you the oppurtunity " \
+            intro = "When it comes to investing, time is on your side.  Time gives you the opportunity " \
             "to ride out downturns and build up your portfolio; " \
             "However, young adults often forget to save for retirement.  " \
             "The earlier you begin, the more time your savings will have to grow in " \
