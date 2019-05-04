@@ -79,7 +79,7 @@ class screen_Builder():
 
     def build_url(self, screen_metrics):
 
-        base = "https://api.intrinio.com/securities/search?conditions=security_name~gt~0,"
+        base = "https://api.intrinio.com/securities/search?conditions=security_name~gt~0,sector~eq~"+self.industry+','
         api_key = self.api_key
         api = "&api_key=" + api_key
         us_only = "&us_only=Yes"
@@ -111,6 +111,8 @@ class screen_Builder():
         if order_logic != "":
             screen_logic = screen_logic + order_logic
 
+
+        print(self.screen_url)
         self.screen_url = base + screen_logic  + us_only + page_size + api
 
     def build_screen(self):
