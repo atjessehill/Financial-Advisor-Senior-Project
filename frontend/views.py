@@ -134,8 +134,9 @@ def app(request):
         'name': user.firstName,
         'ticker': generate.ticker,
         'english': generate.written,
-        #'intro': generate.intro,
-        'graphpath': stat_path,
+        'intro': generate.intro,
+        'closing': generate.closing,
+        'graphpath': stat_path
         'img': img_adr
     }
 

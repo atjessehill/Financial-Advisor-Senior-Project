@@ -34,6 +34,14 @@
                         {% if english %}
 
                         <ul>
+                            <div class="result_item">
+                                <div class="row">
+                                    <li class="litext">
+                                        <p>{{ intro }} </p>
+                                    </li>
+                                </div>
+
+                            </div>
                             {% for result in english %}
                             <div class="result_item">
                                 <div class="row">
@@ -44,6 +52,14 @@
 
                             </div>
                             {% endfor %}
+                            <div class="result_item">
+                                <div class="row">
+                                    <li class="litext">
+                                        <p>{{ closing }} </p>
+                                    </li>
+                                </div>
+
+                            </div>
                         </ul>
 
                         {% else %}
