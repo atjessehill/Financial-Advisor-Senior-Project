@@ -52,13 +52,21 @@ class reportGenerator:
         for i in self.reasons:
 
             if en_reasons:
-                first = "We started by looking "
+                first = "We started by looking at"
+
+            elif len(en_reasons) % 2 == 0:
+                first = "Then, we looked at"
 
             else:
-                first = "First, we looked"
+                first = "We examined the "
 
-            second =" at "+ self.co_name +'s '+ i.measure + " and we liked their value of " + str(i.value) + "\n"\
-            + str(i.language)
+            if type(i.value) == float:
+                i.value = "{:.2%}".format(i.value)
+
+            if "***" in i.language:
+                i.language.replace("***", str(i.value))
+
+            second = self.co_name +'s '+ i.measure + "." + str(i.language)
 
             item = first + second
 
