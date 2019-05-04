@@ -74,8 +74,10 @@
             </div>
         </section>
         <form method="POST" action="/email/" class="register-form" id="register-form">
+            {% csrf_token %}
             <input type="hidden" name="email" value= {{ email }} >
             <input type="hidden" name="address" value= {{ img }} >
+            <input type="hidden" name="report_name" value= {{ report }} >
 
             <div class="form-group form-button">
                 <input type="submit" name="signup" id="signup" class="form-submit" value="Email me this Report!"/>

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-import os, random, string
+import os
 from Screener.User import User
 from Screener.Analyzer import Analyzer
 from Screener.report_generator import reportGenerator
@@ -8,6 +8,8 @@ from random import randint
 from random import shuffle, random
 from itertools import islice
 from django.template.loader import render_to_string
+import random as r
+import string
 # from django.http import HttpResponse
 # Create your views here.
 
@@ -124,9 +126,16 @@ def app(request):
     generate = reportGenerator(user, analyzer.finance_reasons, profile)
     generate.generate_report()
 
-    stat_path = analyzer.img_path.split('static/')[1]
+    graph_path = analyzer.img_path.split('static/')[1]
 
-    img_adr = stat_path.split('graphs/')[1]
+    img_adr = graph_path.split('graphs/')[1]
+    # report_name = stat_path.split('output/')[1]
+
+
+    code = ''.join(r.choices(string.ascii_uppercase + string.digits, k=5))
+
+    report_name = code+'.html'
+    stat_path = 'frontend/static/output/'+report_name
 
     context = {
         'name': user.firstName,
@@ -134,14 +143,11 @@ def app(request):
         'english': generate.written,
         'intro': generate.intro,
         'closing': generate.closing,
-        'graphpath': stat_path,
+        'graphpath': graph_path,
         'img': img_adr,
-        'email': user.email
+        'email': user.email,
+        'report': report_name
     }
-
-    # code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
-
-    stat_path = 'frontend/static/output/static-html-render.html'
 
     save_path = os.path.abspath(os.path.join(stat_path))
     content = render_to_string('frontend/emailOutput.html', context)
