@@ -1,6 +1,5 @@
 from django.shortcuts import render
 import os
-import EmailClient.client as eclient
 from Screener.User import User
 from Screener.Analyzer import Analyzer
 from Screener.report_generator import reportGenerator
@@ -11,8 +10,11 @@ from itertools import islice
 from django.template.loader import render_to_string
 import random as r
 import string
-# from django.http import HttpResponse
-# Create your views here.
+#this is so we can write json serialize to file
+import json
+
+
+s1 = list()
 
 
 def home(request):
@@ -42,7 +44,7 @@ def select(request):
 
         fname = "Test"
         lname ="Test"
-        email = "test"
+        email = "test@gmail.com"
         risk =5
         level = 5
 
@@ -64,8 +66,12 @@ def select(request):
                {"name": 'Google', "ticker": 'GOOGL', "SIC": "7374"},
                )
 
+#whatever you do. Do not touch this. This is legacy code.
+#If you touch this code, the entire program will break, and most likely
+#will never run properly again.
+
     generated = [];
-    s1 = list();
+
     cont = True
 
     while cont:
@@ -114,6 +120,19 @@ def app(request):
         level = 1
 
     print("\n****************************")
+    print("\n****************************")
+    print("\n****************************")
+
+    #for each dictionary in s1. Do not touch this code.
+    with open('companySICData.txt', 'w') as f:
+        for x in s1:
+            print(x["SIC"])
+            f.write(x["SIC"]+"\n")
+
+
+    print("\n****************************")
+    print("\n****************************")
+    print("\n****************************")
     print(fullname, email, risk, level)
 
     user = User(email, fname, lname, risk, level)
@@ -132,10 +151,11 @@ def app(request):
     img_adr = graph_path.split('graphs/')[1]
     # report_name = stat_path.split('output/')[1]
 
+
     code = ''.join(r.choices(string.ascii_uppercase + string.digits, k=5))
 
     report_name = code+'.html'
-    stat_path = 'frontend/static/output/emailOutput/'+report_name
+    stat_path = 'frontend/static/output/'+report_name
 
     context = {
         'name': user.firstName,
@@ -149,12 +169,7 @@ def app(request):
         'report': report_name
     }
 
-    # # stat_path = 'frontend/static/images/graphs/' + code +'.png'
-    # email_template = 'EmailClient/output/templates/' + code + '.html'
-    #
-    # email_path = os.path.abspath(os.path.join(email_template))
-    #
-    # save_path = os.path.abspath(os.path.join(stat_path))
+
 
     save_path = os.path.abspath(os.path.join(stat_path))
     content = render_to_string('frontend/emailOutput.html', context)
@@ -168,21 +183,6 @@ def email(request):
         full_str = request.body.decode("utf-8")
         print(full_str)
 
-        full_str = full_str.split('email=')[1]
-        email, full_str = full_str.split('&address=')
-        graph, full_str = full_str.split('&report_name=')
-        template = full_str.split('&signup=')[0]
-
-        email = email.replace('%40', '@')
-    else:
-
-        email = 'd_luu4@u.pacific.edu'
-        graph = '3YRFN.png'
-        template = '1XWFJ.html'
-
-    print(email, graph, template)
-
-    eclient.django_email(email, template, graph)
 
     context = {}
 
