@@ -135,7 +135,7 @@ def app(request):
     code = ''.join(r.choices(string.ascii_uppercase + string.digits, k=5))
 
     report_name = code+'.html'
-    stat_path = 'frontend/static/output/emailOutput'+report_name
+    stat_path = 'frontend/static/output/emailOutput/'+report_name
 
     context = {
         'name': user.firstName,

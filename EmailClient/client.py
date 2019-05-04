@@ -111,7 +111,7 @@ def django_email(email, template, graph):
     # setup the parameters of the message
     msg['From'] = MY_ADDRESS
     msg['To'] = email
-    msg['Subject'] = "Your Personalized Weekly Stock Research"
+    msg['Subject'] = "Your Personalized Stock Research"
 
     # add in the message body
     msg.attach(MIMEText(html, 'html'))
