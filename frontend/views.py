@@ -2,6 +2,7 @@ from django.shortcuts import render
 import os
 from Screener.User import User
 from Screener.Analyzer import Analyzer
+import EmailClient.client as eclient
 from Screener.report_generator import reportGenerator
 from ratelimit.decorators import ratelimit
 from random import randint
@@ -155,7 +156,7 @@ def app(request):
     code = ''.join(r.choices(string.ascii_uppercase + string.digits, k=5))
 
     report_name = code+'.html'
-    stat_path = 'frontend/static/output/'+report_name
+    stat_path = 'frontend/static/output/emailOutput/'+report_name
 
     context = {
         'name': user.firstName,
@@ -183,7 +184,21 @@ def email(request):
         full_str = request.body.decode("utf-8")
         print(full_str)
 
+        full_str = full_str.split('email=')[1]
+        email, full_str = full_str.split('&address=')
+        graph, full_str = full_str.split('&report_name=')
+        template = full_str.split('&signup=')[0]
 
+        email = email.replace('%40', '@')
+    else:
+
+        email = 'd_luu4@u.pacific.edu'
+        graph = '3YRFN.png'
+        template = '1XWFJ.html'
+
+    print(email, graph, template)
+
+    eclient.django_email(email, template, graph)
     context = {}
 
     return render(request, "frontend/Final.html", context)
