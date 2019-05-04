@@ -19,6 +19,12 @@ class User:
         elif risk > 5:
             self.risk_profile = "Risky"
 
+        if knowledge <= 5:
+            self.knowledge = "Beginner"
+        elif knowledge > 5:
+            self.knowledge = "Advanced"
+
+        self.demo_screen = None
         self.risk_score = None
         self.investing_knowledge = knowledge
         self.age = None
@@ -45,7 +51,7 @@ class User:
     def generate_screen_url_demo(self):
 
         new_screen = Screen()
-        new_screen.get_url_demo(self.risk_profile, "null", 'Tech')
+        self.demo_screen = new_screen.get_url_demo(self.risk_profile, "null", 'Tech')
 
     def run_all_empty_screen(self):
         print("run all empty screen")
@@ -65,6 +71,20 @@ class User:
             screen_dict[key] = screen.to_dict()
 
         user_profile.update(screen_dict)
+        user_profile = json.dumps(user_profile)
+        user_json = json.loads(user_profile)
+
+        return user_json
+
+
+    def user_to_json_demo(self):
+
+        # user_profile = {'UserInfo':{'risk_profile': self.risk_profile, "risk_score" : self.risk_score,
+        # 'investing_knowledge' : self.investing_knowledge, 'industries:': self.industry_preference, 'age': self.age,
+        # 'income':self.income, 'financialGoal':self.financialGoals}}
+
+        user_profile = {'risk_profile': self.risk_profile, 'email': self.email, 'knowledge': self.knowledge, 'screen': self.demo_screen}
+
         user_profile = json.dumps(user_profile)
         user_json = json.loads(user_profile)
 

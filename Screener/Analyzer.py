@@ -5,7 +5,7 @@ import json
 import datetime
 import os
 
-debug = False
+debug = True
 
 class ReportGenerator:
 
@@ -75,6 +75,30 @@ class Analyzer:
         #TODO REMOVE
         self.screen_results = test_screen_results.test_3
 
+    def __init__(self, user_info, test):
+        # TODO Analyze one screen at a time, so only pass in user profile and one screen. Current setup
+        #  will only run the screen that matches the user profile. Ex: UserProfile.Defensive == Screen.Defensive
+        print("Demo analyzer")
+
+        self.risk_profile = user_info['risk_profile']
+        self.knowledge = user_info['knowledge']
+        self.screen = user_info['screen']
+
+        if debug:
+           excelpath = "Fundamental_Info.xlsx"
+
+        else:
+            excelpath = os.path.abspath(os.path.join('frontend/static/Fundamental_Info.xlsx'))
+
+        self.excel_sheet = pd.read_excel(excelpath, sheet_name="Sheet1")
+
+        self.screen_results = self.run_screen_demo(self.screen)
+
+    def run_screen_demo(self, url):
+        contents = urllib.request.urlopen(url)
+        decode = contents.read().decode('utf-8')
+        json_obj = json.loads(decode)
+        return json_obj['data']
 
     def run_screen(self, screen_info):
         url = screen_info['URL']
@@ -229,5 +253,19 @@ class Analyzer:
             self.risky_analyzer()
 
         self.graph_price()
+        self.get_standard_fundamentals()
+        self.report_text()
+
+    def analysis_demo(self):
+        companies = pd.DataFrame(self.screen_results)
+        primary_only = companies['ticker'].str.len() < 5
+        self.companies = companies[primary_only]
+
+        if self.risk_profile == "Defensive":
+            self.defensive_analyzer()
+        elif self.risk_profile == "Risky":
+            self.risky_analyzer()
+
+        # self.graph_price()
         self.get_standard_fundamentals()
         self.report_text()

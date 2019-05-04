@@ -96,11 +96,15 @@ def new_tests():
     risk = 3
     level = 1
 
-    user = User.User(fname, email, lname, risk, level)
+    user = User.User(email, fname, lname, risk, level)
     user.generate_screen_url_demo()
+    print(user.user_to_json_demo())
 
-
-
+    analyzer = Analyzer.Analyzer(user.user_to_json_demo(), "Demo")
+    analyzer.analysis_demo()
+    profile = analyzer.company_profile
+    generate = report_generator.reportGenerator(user, analyzer.finance_reasons, profile)
+    generate.generate_report()
 
 
 new_tests()
