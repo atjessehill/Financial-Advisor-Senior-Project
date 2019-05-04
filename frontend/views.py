@@ -1,5 +1,6 @@
 from django.shortcuts import render
 import os
+import EmailClient.client as eclient
 from Screener.User import User
 from Screener.Analyzer import Analyzer
 from Screener.report_generator import reportGenerator
@@ -131,11 +132,10 @@ def app(request):
     img_adr = graph_path.split('graphs/')[1]
     # report_name = stat_path.split('output/')[1]
 
-
     code = ''.join(r.choices(string.ascii_uppercase + string.digits, k=5))
 
     report_name = code+'.html'
-    stat_path = 'frontend/static/output/'+report_name
+    stat_path = 'frontend/static/output/emailOutput'+report_name
 
     context = {
         'name': user.firstName,
@@ -148,6 +148,13 @@ def app(request):
         'email': user.email,
         'report': report_name
     }
+
+    # # stat_path = 'frontend/static/images/graphs/' + code +'.png'
+    # email_template = 'EmailClient/output/templates/' + code + '.html'
+    #
+    # email_path = os.path.abspath(os.path.join(email_template))
+    #
+    # save_path = os.path.abspath(os.path.join(stat_path))
 
     save_path = os.path.abspath(os.path.join(stat_path))
     content = render_to_string('frontend/emailOutput.html', context)
@@ -167,8 +174,15 @@ def email(request):
         template = full_str.split('&signup=')[0]
 
         email = email.replace('%40', '@')
+    else:
+
+        email = 'd_luu4@u.pacific.edu'
+        graph = '3YRFN.png'
+        template = '1XWFJ.html'
 
     print(email, graph, template)
+
+    eclient.django_email(email, template, graph)
 
     context = {}
 
